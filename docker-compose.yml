@@ -1,0 +1,20 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=${SQL_PASSWORD}
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+
+  flyway:
+    image: flyway/flyway:9-alpine
+    command: -url=jdbc:sqlserver://sqlserver:1433;databaseName=master;trustServerCertificate=true -user=sa -password=${SQL_PASSWORD} migrate
+    volumes:
+      - ./sql:/flyway/sql
+
+volumes:
+  sqlserver_data:

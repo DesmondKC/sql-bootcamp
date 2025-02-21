@@ -1,20 +1,66 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# SQL Bootcamp Migration Base Project
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+This project serves as a base from which apprentices can build up their SQL databases overtime in accordance with the SQL bootcamp.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+The project is designed in a way that an apprentice can submit their SQL scripts in the form of a database migration. This allows for it to be reviewed by coaches in a similar manner to the Merge Requests in the rest of the bootcamp.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+## Apprentice Explanation
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+As an apprentice you do not need a deep understanding of the technologies being utilized as part of this project. They are merely forming a base from which you can add you SQL scripts to. In saying that we will not discourage you from reading up on docker or database migrations, in general just be a mindful that this particular learning will come later.
+
+## Prerequisites
+
+Before you begin, ensure you have met the following requirements:
+
+- Docker Desktop installed
+- Microsoft SQL Server Management Studio installed
+- Read this entire document
+
+## Getting Started
+
+1. Start the services
+```bash
+docker compose up -d
+```
+
+## Database Migrations
+
+The project uses Flyway for database migrations. Migration files are located in the `sql` directory.
+
+To run migrations manually:
+```bash
+docker compose run --rm flyway migrate
+```
+
+## Project Structure
+
+```
+sql-bootcamp/
+├── docker-compose.yml  # Docker services configuration
+├── .env                # Variable file for Docker Compose
+├── sql/                # Database migration files
+│   ├── V1__InitialDatabaseCreation.sql # Files that you might add as part of the bootcamp
+│   └── V2__CreateTableExample.sql      # Files that you might add as part of the bootcamp
+└── README.md           # This file
+```
+
+## Connecting to SQL Server
+
+This project will spin up a server instance, you can connect to it with the following details:
+
+![Login Details Screenshot](/img/login-screenshot.png)
+
+### Details in Screenshot
+
+- Server Name: localhost,1433
+- Login: sa
+- Password: Tot@llyStr0ng!PassworD
+
+## Development
+
+### Adding New Migrations
+
+1. Create a new SQL file in the `sql` directory
+2. Follow the naming convention: `V{number}__{description}.sql`
+3. Write your SQL statements
+4. Run the migrations
