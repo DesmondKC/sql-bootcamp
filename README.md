@@ -63,30 +63,7 @@ This project will spin up a server instance, you can connect to it with the foll
 
 All development (i.e Adding Tables and Populating data) will be done on the "Practice" Database that is created as part of this base project. Migration's are run on this database.
 
-Becareful about making any changes on the database directly and not through the migrations. If you do want to make changes directly on the database be sure to delete the volume and do a docker compose up again just so you can get a fresh database and test your migrations.
-
-### Reset and Rebuild your Database
-
-As mentioned above if you make changes directly to your Database you will need to delete the volume attached to your the SQL docker container.
-
-You can do so with the following steps:
-**Using the terminal**
-1. Stop the running Container:
-```bash
-docker stop sql-bootcamp-test
-```
-*If that does not work then the nuclear option:*
-```bash
-docker kill sql-bootcamp-test
-```
-2. Now you can remove the volume
-```bash
-docker rm sql-bootcamp-test_sqlserver_data
-```
-*If that does not work then the nuclear option:*
-```bash
-docker rm -f sql-bootcamp-test_sqlserver_data
-```
+Be careful about making any changes on the database directly and not through the migrations. If you do want to make changes directly on the database be sure to delete the volume and do a docker compose up again just so you can get a fresh database and test your migrations.
 
 ### Adding New Migrations
 
@@ -94,3 +71,18 @@ docker rm -f sql-bootcamp-test_sqlserver_data
 2. Follow the naming convention: `V{number}__{description}.sql`
 3. Write your SQL statements
 4. Run the migrations
+
+### Reset and Rebuild your Database
+
+As mentioned above if you make changes directly to your Database you will need to delete the volume attached to your the SQL docker container. You can do this with the docker compose down command by adding the *-v* parameter.
+
+*Just for your own curiousity volumes are used to maintain persistence between containers(which are designed to be disposable).*
+
+**Obviously this will delete your containers and SQL database data, requiring you to do a docker compose up as mentioned above.**
+
+You can do so with the following steps:
+**Using the terminal**
+1. Delete the Stack created by the compose file:
+```bash
+docker compose down -v
+```
