@@ -24,7 +24,7 @@ services:
       - ./sql/init:/sql
     command: >
       /bin/bash -c '
-      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P ${SQL_PASSWORD} -C -i /sql/CreateDatabase.sql;
+      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P ${SQL_PASSWORD} -C -i /sql/CreateDatabases.sql;
       '
 
   flyway:
@@ -32,9 +32,9 @@ services:
     depends_on:
       db-init:
         condition: service_completed_successfully
-    command: -url=jdbc:sqlserver://sqlserver:1433;databaseName=Practice;trustServerCertificate=true -user=sa -password=${SQL_PASSWORD} migrate
+    entrypoint: ["flyway", "-url=jdbc:sqlserver://host.docker.internal:1433;databaseName=Exercises;trustServerCertificate=true", "-user=sa", "-password=${SQL_PASSWORD}", "migrate"] 
     volumes:
-      - ./sql:/flyway/sql
+      - ./sql/migrations:/flyway/sql
 
 volumes:
   sqlserver_data:

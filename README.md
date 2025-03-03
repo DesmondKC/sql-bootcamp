@@ -30,7 +30,7 @@ The project uses Flyway for database migrations. Migration files are located in 
 **Using the terminal**
 To run migrations manually:
 ```bash
-docker compose run --rm flyway migrate
+docker compose up -d flyway
 ```
 
 ## Project Structure
@@ -61,7 +61,7 @@ This project will spin up a server instance, you can connect to it with the foll
 
 ## Development
 
-All development (i.e Adding Tables and Populating data) will be done on the "Practice" Database that is created as part of this base project. Migration's are run on this database.
+All development (i.e Adding Tables and Populating data) will be done on the "Exercise" Database that is created as part of this base project. Migration's are run on this database.
 
 Be careful about making any changes on the database directly and not through the migrations. If you do want to make changes directly on the database be sure to delete the volume and do a docker compose up again just so you can get a fresh database and test your migrations.
 
